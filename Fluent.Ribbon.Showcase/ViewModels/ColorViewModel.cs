@@ -75,6 +75,11 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value is null)
+                {
+                    return;
+                }
+
                 ThemeManager.ChangeThemeBaseColor(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentTheme));
@@ -87,6 +92,11 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value is null)
+                {
+                    return;
+                }
+
                 ThemeManager.ChangeTheme(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentBaseColor));

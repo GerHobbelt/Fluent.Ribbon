@@ -519,6 +519,8 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
+            // var theme = RuntimeThemeGenerator.GenerateRuntimeTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, RibbonLibraryThemeProvider.DefaultInstance);
+            // this.ThemeResourceDictionaryTextBox.Text = theme.Name;
             this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Item1;
         }
 
