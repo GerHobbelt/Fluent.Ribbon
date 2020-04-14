@@ -285,8 +285,12 @@ namespace Fluent.Tests.ThemeManager
                                      "Amber (Dark)",
                                      "Amber (Light)",
                                      "Blue (Colorful)",
+                                     "Blue (Colorful) (Dark)",
+                                     "Blue (Colorful) (Light)",
                                      "Blue (Dark)",
                                      "Blue (Light)",
+                                     "Blue (MahApps.Metro) (Dark)",
+                                     "Blue (MahApps.Metro) (Light)",
                                      "Brown (Dark)",
                                      "Brown (Light)",
                                      "Cobalt (Dark)",
@@ -298,6 +302,8 @@ namespace Fluent.Tests.ThemeManager
                                      "Emerald (Dark)",
                                      "Emerald (Light)",
                                      "Gray (Colorful)",
+                                     "Gray (Colorful) (Dark)",
+                                     "Gray (Colorful) (Light)",
                                      "Green (Dark)",
                                      "Green (Light)",
                                      "Indigo (Dark)",
@@ -331,7 +337,8 @@ namespace Fluent.Tests.ThemeManager
                                      "Yellow (Dark)",
                                      "Yellow (Light)"
                                  };
-            Assert.That(CollectionViewSource.GetDefaultView(ThemeManager.Themes).Cast<Theme>().Select(x => x.DisplayName).ToList(), Is.EqualTo(expectedThemes));
+            var lst = CollectionViewSource.GetDefaultView(ThemeManager.Themes).Cast<Theme>().Select(x => x.DisplayName).ToList();
+            Assert.That(lst, Is.EqualTo(expectedThemes));
         }
 
         [Test]
