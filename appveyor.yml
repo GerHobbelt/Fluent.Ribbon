@@ -1,5 +1,4 @@
 # configuration for develop and master branch
-
 branches:
   only:
     - develop
@@ -7,8 +6,6 @@ branches:
     - /v\d*\.\d*\.\d*/
 
 image: Visual Studio 2019
-configuration: Release
-platform: Any CPU
 test: off
 
 pull_requests:
