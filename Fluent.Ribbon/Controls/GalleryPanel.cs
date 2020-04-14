@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using System.Windows;
@@ -34,12 +35,6 @@ namespace Fluent
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Used to prevent measures which cause the layout to flicker.
-        /// This is needed when the gallery panel has switched owners during InRibbonGallery popup open/close.
-        /// </summary>
-        public bool IgnoreNextMeasureCall { get; set; }
 
         #region IsGrouped
 
@@ -287,6 +282,7 @@ namespace Fluent
 
         private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Loaded -= this.HandleGalleryPanel_Loaded;
             this.Refresh();
         }
 
@@ -319,6 +315,11 @@ namespace Fluent
         /// </summary>
         public void UpdateMinAndMaxWidth()
         {
+            if (this.areUpdatesSuspsended)
+            {
+                return;
+            }
+
             // Calculate actual min width
             double actualMinWidth = 0;
             var actualMaxWidth = double.PositiveInfinity;
@@ -378,9 +379,46 @@ namespace Fluent
 
         #region Refresh
 
+        private bool areUpdatesSuspsended;
+
+        /// <summary>
+        /// Suspends updates.
+        /// </summary>
+        public void SuspendUpdates()
+        {
+            this.areUpdatesSuspsended = true;
+        }
+
+        /// <summary>
+        /// Resumes updates.
+        /// </summary>
+        public void ResumeUpdates()
+        {
+            this.areUpdatesSuspsended = false;
+        }
+
+        /// <summary>
+        /// Resumes updates and calls <see cref="UpdateMinAndMaxWidth"/>.
+        /// </summary>
+        public void ResumeUpdatesAndUpdate()
+        {
+            this.ResumeUpdates();
+            this.UpdateMinAndMaxWidth();
+        }
+
+        /// <summary>
+        /// Resumes updates and calls <see cref="Refresh"/>.
+        /// </summary>
+        public void ResumeUpdatesRefresh()
+        {
+            this.ResumeUpdates();
+            this.Refresh();
+        }
+
         private void RefreshAsync()
         {
-            if (this.needsRefresh)
+            if (this.needsRefresh
+                || this.areUpdatesSuspsended)
             {
                 return;
             }
@@ -400,6 +438,11 @@ namespace Fluent
 
         private void Refresh()
         {
+            if (this.areUpdatesSuspsended)
+            {
+                return;
+            }
+
             // Clear currently used group containers
             // and supply with new generated ones
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
@@ -520,15 +563,6 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (this.IgnoreNextMeasureCall)
-            {
-                this.IgnoreNextMeasureCall = false;
-
-                // Force a new async measure after we returned our temporary desired size
-                this.RunInDispatcherAsync(this.ForceMeasure);
-                return this.DesiredSize;
-            }
-
             double width = 0;
             double height = 0;
             foreach (var child in this.galleryGroupContainers)
@@ -538,7 +572,9 @@ namespace Fluent
                 width = Math.Max(width, child.DesiredSize.Width);
             }
 
-            return new Size(width, height);
+            var size = new Size(width, height);
+
+            return size;
         }
 
         /// <inheritdoc />

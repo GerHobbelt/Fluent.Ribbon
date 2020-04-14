@@ -38,6 +38,14 @@
     </Compile>
   </ItemGroup>
 
+  <!-- Sign assembly -->
+  <PropertyGroup>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  </PropertyGroup>
+
   <!-- <ItemGroup>
     <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
     <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
