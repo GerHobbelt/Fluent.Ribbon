@@ -58,7 +58,7 @@
     <PropertyGroup>
       <XamlCombinePath>$(MSBuildProjectDirectory)/Themes/XamlCombine.exe</XamlCombinePath>
       <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/netcoreapp3.0/XamlCombine.exe</XamlCombinePath> -->
-    </PropertyGroup>       
+    </PropertyGroup>
     <!-- Generate theme files -->
     <Message Text="$(XamlColorSchemeGeneratorExecutable)" />
     <Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
