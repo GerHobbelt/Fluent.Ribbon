@@ -35,27 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" version="4.3.0-alpha0081" />
-    <PackageReference Include="XamlColorSchemeGenerator" version="4.0.0-alpha*" privateAssets="all" includeAssets="build" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="GitVersionTask" Version="5.2.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>build; native</IncludeAssets>
-    </PackageReference>
-    <PackageReference Update="JetBrains.Annotations" Version="2020.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>compile; build</IncludeAssets>
-    </PackageReference>
-    <PackageReference Update="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>build; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Update="WpfAnalyzers" Version="2.4.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>build; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="ControlzEx" />
+    <PackageReference Include="XamlColorSchemeGenerator" privateAssets="all" includeAssets="build" />
   </ItemGroup>
 
   <!-- NuGet -->
