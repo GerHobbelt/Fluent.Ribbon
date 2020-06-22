@@ -34,10 +34,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
 
+<!--
   <ItemGroup>
-    <PackageReference Include="ControlzEx" />
-    <PackageReference Include="XamlColorSchemeGenerator" privateAssets="all" includeAssets="build" />
+    <PackageReference Include="ControlzEx" Version="0.1" />
+    <PackageReference Include="XamlColorSchemeGenerator" privateAssets="all" includeAssets="build" Version="0.1" />
   </ItemGroup>
+-->
 
   <!-- NuGet -->
   <PropertyGroup>
@@ -61,7 +63,7 @@
     </PropertyGroup>
     <!-- Generate theme files -->
     <Message Text="$(XamlColorSchemeGeneratorExecutable)" />
-    <Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
+    <!--<Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />-->
     <!-- Combine xaml files -->
     <Exec Command="&quot;$(XamlCombinePath)&quot; &quot;Styles.txt&quot; &quot;Styles.xaml&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes" />
   </Target>

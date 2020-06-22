@@ -27,12 +27,15 @@
     <None Include="MahMetro*" />
   </ItemGroup>
 
+<!--
+
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
 
-    <PackageReference Include="MahApps.Metro.IconPacks.Material" />
-    <PackageReference Include="MahApps.Metro" Condition="$(InlcudeMahAppsMetro)" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="0.1" />
+    <PackageReference Include="MahApps.Metro" Condition="$(InlcudeMahAppsMetro)" Version="0.1" />
   </ItemGroup>
+-->
 
   <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP)) == false">
     <Reference Include="System.Web" />
