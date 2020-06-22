@@ -43,5 +43,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>build; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Update="XamlColorSchemeGenerator" Version="4.0.0-rc0140" />
   </ItemGroup>
 </Project>

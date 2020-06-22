@@ -1,3 +1,5 @@
+#if false
+
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
@@ -97,3 +99,6 @@ namespace Fluent
         public SolidColorBrush ShowcaseBrush { get; }
     }
 }
+
+#endif
+
