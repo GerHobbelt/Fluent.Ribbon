@@ -33,24 +33,10 @@
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ControlzEx\src\ControlzEx\ControlzEx.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="JetBrains.Annotations" Version="2020.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>compile; build</IncludeAssets>
-    </PackageReference>
-    <PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="3.6.0" />
-    <PackageReference Update="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>build; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Update="WpfAnalyzers" Version="3.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>build; analyzers</IncludeAssets>
-    </PackageReference>
+    <ProjectReference Include="..\..\ControlzEx\src\ControlzEx\ControlzEx.csproj" />
+    <ProjectReference Include="..\..\XamlColorSchemeGenerator\src\XamlColorSchemeGenerator.csproj" />
   </ItemGroup>
 
   <!-- NuGet -->
@@ -68,24 +54,18 @@
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
 
- <Target Name="GenerateXamlFilesInner">
+ <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds">
     <PropertyGroup>
       <!-- <XamlColorSchemeGeneratorPath>$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
       <!-- <XamlColorSchemeGeneratorPath>C:/DEV/OSS_Own/XamlColorSchemeGenerator/bin/Debug/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
       <XamlColorSchemeGeneratorPath>$(MSBuildProjectDirectory)\..\..\XamlColorSchemeGenerator\bin\Debug\netcoreapp3.1\XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath>
       <XamlCombinePath>$(MSBuildProjectDirectory)/Themes/XamlCombine.exe</XamlCombinePath>
-      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/XamlCombine.exe</XamlCombinePath> -->
+      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/netcoreapp3.0/XamlCombine.exe</XamlCombinePath> -->
     </PropertyGroup>
     <!-- Generate theme files -->
+    <Message Text="Generate theme files using XamlColorSchemeGenerator" />
     <Exec Command="&quot;$(XamlColorSchemeGeneratorPath)&quot; -v" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
     <!-- Combine xaml files -->
     <Exec Command="&quot;$(XamlCombinePath)&quot; &quot;Styles.txt&quot; &quot;Styles.xaml&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes" />
-  </Target>
-
-  <!-- Key to generating the xaml files at the right point in time is to do this before DispatchToInnerBuilds -->
-  <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds;BeforeBuild">
-    <!--TargetFramework=once is critical here, as it will not execute task from same project with same properties multiple times. 
-    We need to unify TargetFramework between empty, net45, netcoreapp3.0 etc.-->
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="GenerateXamlFilesInner" Properties="TargetFramework=once" />
   </Target>
 </Project>

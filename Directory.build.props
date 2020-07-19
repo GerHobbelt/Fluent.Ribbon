@@ -1,8 +1,7 @@
 <Project>
   <PropertyGroup>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
-    <!-- <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile> -->
-    <!-- <RestoreLockedMode>true</RestoreLockedMode> -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) != 'true'">false</IsBuildingWpfTempProj>
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) == 'true'">true</IsBuildingWpfTempProj>
   </PropertyGroup>
@@ -24,9 +23,12 @@
     <NoWarn>$(NoWarn);NU1701;NU1603;NU1605;SA1652</NoWarn>
   </PropertyGroup>
 
+  <!-- Sign assembly -->
   <PropertyGroup>
-    <!-- <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <RestoreLockedMode Condition="'$(RestoreLockedMode)' == ''">true</RestoreLockedMode> -->
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,27 +39,12 @@
     </Compile>
   </ItemGroup>
 
-  <!-- Sign assembly -->
-  <PropertyGroup>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-  </PropertyGroup>
+    <!-- Add the references for all projects and targets-->
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2019.*" PrivateAssets="All" includeAssets="build;compile" />
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.*" />
+        <PackageReference Include="WpfAnalyzers" Version="2.2.*" PrivateAssets="All" />
 
-  <!-- <ItemGroup>
-    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
-    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
-  </ItemGroup> -->
-
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" version="2019.*" privateAssets="all" includeAssets="build;compile" />
-
-  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="3.*" privateAssets="all" includeAssets="build;analyzers" Condition="$(DefineConstants.Contains(NETCOREAPP))" />
-    <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="all" includeAssets="build;analyzers" /> -->
-    <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="all" includeAssets="build;analyzers" />
-    <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="all" includeAssets="build;analyzers" /> -->
-    <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="all" includeAssets="build;analyzers" />
-    <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="all" includeAssets="build;analyzers" />
-  </ItemGroup>
+        <!-- <PackageReference Include="GitVersionTask" Version="5.*" PrivateAssets="All" IncludeAssets="build; native" /> -->
+    </ItemGroup>
 </Project>
