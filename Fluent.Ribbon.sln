@@ -42,6 +42,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon", "Fluent.Rib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Tests", "Fluent.Ribbon.Tests\Fluent.Ribbon.Tests.csproj", "{DCA7EC6D-7356-45DE-9713-495298C4E661}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlzEx.Showcase", "..\ControlzEx\src\ControlzEx.Showcase\ControlzEx.Showcase.csproj", "{1EFF5A0A-A303-4026-A154-CD851475A339}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlzEx", "..\ControlzEx\src\ControlzEx\ControlzEx.csproj", "{9BC8C5D7-D025-401F-89A7-27200667BBF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlzEx.Tests", "..\ControlzEx\src\ControlzEx.Tests\ControlzEx.Tests.csproj", "{50E34A48-9A3D-452D-B3B8-FF3C60DEAD75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
