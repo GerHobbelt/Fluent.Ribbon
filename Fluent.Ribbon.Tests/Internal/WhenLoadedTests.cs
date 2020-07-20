@@ -17,7 +17,7 @@
 
             using (new TestRibbonWindow(control))
             {
-                control.WhenLoaded(x => ++loadedActionCallCount);
+                Fluent.Internal.WhenLoadedExtension.WhenLoaded(control, x => ++loadedActionCallCount);
 
                 Assert.That(loadedActionCallCount, Is.EqualTo(1));
             }
