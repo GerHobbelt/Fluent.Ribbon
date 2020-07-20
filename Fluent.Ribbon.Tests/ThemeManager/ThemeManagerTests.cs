@@ -1,3 +1,5 @@
+#if false
+
 namespace Fluent.Tests.ThemeManager
 {
     using System;
@@ -443,3 +445,6 @@ namespace Fluent.Tests.ThemeManager
         }
     }
 }
+
+#endif
+

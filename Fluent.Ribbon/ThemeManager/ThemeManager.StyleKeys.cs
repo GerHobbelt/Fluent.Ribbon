@@ -1,4 +1,6 @@
-﻿// ReSharper disable once CheckNamespace
+﻿#if false
+
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.Collections.Generic;
@@ -28,3 +30,6 @@ namespace Fluent
                                                                           });
     }
 }
+
+#endif
+

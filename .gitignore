@@ -44,8 +44,6 @@ tools/
 *.nupkg
 
 # Generated files
-Fluent.Ribbon/Themes/**/Styles.xaml
-Fluent.Ribbon/Themes/Themes/*.xaml
 packages/
 .tmp
 *_wpftmp.csproj
@@ -60,4 +58,6 @@ TestResult.xml
 # Allowed files
 !Fluent.Ribbon/Themes/XamlCombine.exe
 !Fluent.Ribbon/Themes/Theme.Template.xaml
-/Fluent.Ribbon/FastWPF.DesignerSettings
+
+# misc
+FastWPF.DesignerSettings

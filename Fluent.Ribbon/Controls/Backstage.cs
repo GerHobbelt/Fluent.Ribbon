@@ -224,9 +224,20 @@ namespace Fluent
         {
             get
             {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
                 if (this.Content != null)
                 {
                     yield return this.Content;
+                }
+
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
                 }
             }
         }
@@ -437,7 +448,7 @@ namespace Fluent
             {
                 storyboard = storyboard.Clone();
 
-                storyboard.CurrentStateInvalidated += HanldeStoryboardCurrentStateInvalidated;
+                storyboard.CurrentStateInvalidated += HandleStoryboardCurrentStateInvalidated;
                 storyboard.Completed += HandleStoryboardOnCompleted;
 
                 storyboard.Begin(this.adorner);
@@ -447,10 +458,10 @@ namespace Fluent
                 this.adorner.Visibility = Visibility.Visible;
             }
 
-            void HanldeStoryboardCurrentStateInvalidated(object sender, EventArgs e)
+            void HandleStoryboardCurrentStateInvalidated(object sender, EventArgs e)
             {
                 this.adorner.Visibility = Visibility.Visible;
-                storyboard.CurrentStateInvalidated -= HanldeStoryboardCurrentStateInvalidated;
+                storyboard.CurrentStateInvalidated -= HandleStoryboardCurrentStateInvalidated;
             }
 
             void HandleStoryboardOnCompleted(object sender, EventArgs args)
