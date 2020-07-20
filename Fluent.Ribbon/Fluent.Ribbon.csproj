@@ -35,7 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" version="4.2.2" />
+    <ProjectReference Include="..\..\ControlzEx\src\ControlzEx\ControlzEx.csproj" />
+    <ProjectReference Include="..\..\XamlColorSchemeGenerator\src\XamlColorSchemeGenerator.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,14 +53,6 @@
       <IncludeAssets>build; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
-  <!-- Sign assembly -->
-  <PropertyGroup>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/../Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-  </PropertyGroup>
 
   <!-- NuGet -->
   <PropertyGroup>
@@ -78,13 +71,15 @@
 
  <Target Name="GenerateXamlFilesInner">
     <PropertyGroup>
-      <XamlColorSchemeGeneratorPath>$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath>
+      <!-- <XamlColorSchemeGeneratorPath>$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
       <!-- <XamlColorSchemeGeneratorPath>C:/DEV/OSS_Own/XamlColorSchemeGenerator/bin/Debug/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
+      <XamlColorSchemeGeneratorPath>$(MSBuildProjectDirectory)\..\..\XamlColorSchemeGenerator\bin\Debug\netcoreapp3.1\XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath>
       <XamlCombinePath>$(MSBuildProjectDirectory)/Themes/XamlCombine.exe</XamlCombinePath>
-      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/XamlCombine.exe</XamlCombinePath> -->
+      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/netcoreapp3.0/XamlCombine.exe</XamlCombinePath> -->
     </PropertyGroup>
     <!-- Generate theme files -->
-    <Exec Command="&quot;$(XamlColorSchemeGeneratorPath)&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
+    <Message Text="Generate theme files using XamlColorSchemeGenerator" />
+    <Exec Command="&quot;$(XamlColorSchemeGeneratorPath)&quot; -v" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
     <!-- Combine xaml files -->
     <Exec Command="&quot;$(XamlCombinePath)&quot; &quot;Styles.txt&quot; &quot;Styles.xaml&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes" />
   </Target>

@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CDBFA905
 		Build.ps1 = Build.ps1
 		Directory.build.props = Directory.build.props
 		Directory.build.targets = Directory.build.targets
+		GitVersion.yml = GitVersion.yml
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6ADD536-3DB2-4418-AED6-98AB991D1B77}"
@@ -32,6 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 		Shared\GlobalAssemblyInfo.cs = Shared\GlobalAssemblyInfo.cs
 		License.txt = License.txt
+		NuGet.Config = NuGet.Config
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -41,10 +44,38 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F645
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Showcase", "Fluent.Ribbon.Showcase\Fluent.Ribbon.Showcase.csproj", "{CFFE1910-4918-4710-8F33-86B584D41316}"
+	ProjectSection(ProjectDependencies) = postProject
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A} = {363E0479-74EE-406B-A7B4-C29FDED3BB1A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon", "Fluent.Ribbon\Fluent.Ribbon.csproj", "{B12AC015-B97F-4975-9112-354449FC95A9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A} = {363E0479-74EE-406B-A7B4-C29FDED3BB1A}
+		{BB8D608C-715D-4DB1-9AF8-52EED58F1516} = {BB8D608C-715D-4DB1-9AF8-52EED58F1516}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Tests", "Fluent.Ribbon.Tests\Fluent.Ribbon.Tests.csproj", "{DCA7EC6D-7356-45DE-9713-495298C4E661}"
+	ProjectSection(ProjectDependencies) = postProject
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A} = {363E0479-74EE-406B-A7B4-C29FDED3BB1A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControlzEx", "ControlzEx", "{C13946C9-7476-4946-BD68-088911270D9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlzEx", "..\ControlzEx\src\ControlzEx\ControlzEx.csproj", "{BB8D608C-715D-4DB1-9AF8-52EED58F1516}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlzEx.Tests", "..\ControlzEx\src\ControlzEx.Tests\ControlzEx.Tests.csproj", "{C33D071E-36CF-4228-A45B-9FD495A2578A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A} = {363E0479-74EE-406B-A7B4-C29FDED3BB1A}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlzEx.Showcase", "..\ControlzEx\src\ControlzEx.Showcase\ControlzEx.Showcase.csproj", "{E011F4A3-BFAC-4F2D-BD34-C65ACD6C96FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A} = {363E0479-74EE-406B-A7B4-C29FDED3BB1A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamlColorSchemeGenerator", "XamlColorSchemeGenerator", "{F0DBCED1-A15D-4C93-B9A7-CECEAA064E03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlColorSchemeGenerator", "..\XamlColorSchemeGenerator\src\XamlColorSchemeGenerator.csproj", "{363E0479-74EE-406B-A7B4-C29FDED3BB1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,9 +95,31 @@ Global
 		{DCA7EC6D-7356-45DE-9713-495298C4E661}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCA7EC6D-7356-45DE-9713-495298C4E661}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCA7EC6D-7356-45DE-9713-495298C4E661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8D608C-715D-4DB1-9AF8-52EED58F1516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8D608C-715D-4DB1-9AF8-52EED58F1516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8D608C-715D-4DB1-9AF8-52EED58F1516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8D608C-715D-4DB1-9AF8-52EED58F1516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C33D071E-36CF-4228-A45B-9FD495A2578A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C33D071E-36CF-4228-A45B-9FD495A2578A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C33D071E-36CF-4228-A45B-9FD495A2578A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C33D071E-36CF-4228-A45B-9FD495A2578A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E011F4A3-BFAC-4F2D-BD34-C65ACD6C96FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E011F4A3-BFAC-4F2D-BD34-C65ACD6C96FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E011F4A3-BFAC-4F2D-BD34-C65ACD6C96FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E011F4A3-BFAC-4F2D-BD34-C65ACD6C96FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BB8D608C-715D-4DB1-9AF8-52EED58F1516} = {C13946C9-7476-4946-BD68-088911270D9C}
+		{C33D071E-36CF-4228-A45B-9FD495A2578A} = {C13946C9-7476-4946-BD68-088911270D9C}
+		{E011F4A3-BFAC-4F2D-BD34-C65ACD6C96FA} = {C13946C9-7476-4946-BD68-088911270D9C}
+		{363E0479-74EE-406B-A7B4-C29FDED3BB1A} = {F0DBCED1-A15D-4C93-B9A7-CECEAA064E03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10F6867B-74CF-4D00-B071-A5549F52E18F}
