@@ -1,57 +1,47 @@
 ﻿namespace Fluent.Collections
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Collections.Specialized;
 
     /// <summary>
-    /// asdfasdfasdf
+    /// Synchronizes a target collection with a source collection in a one way fashion.
     /// </summary>
     public class CollectionSyncHelper<TItem>
     {
         /// <summary>
-        /// asdfasdf
+        /// Creates a new instance with <paramref name="source"/> as <see cref="Source"/> and <paramref name="target"/> as <see cref="Target"/>.
         /// </summary>
-        public CollectionSyncHelper(ItemCollectionWithLogicalTreeSupport<TItem> source, ItemCollectionWithLogicalTreeSupport<TItem> target)
+        public CollectionSyncHelper(ObservableCollection<TItem> source, ObservableCollection<TItem> target)
         {
             this.Source = source ?? throw new ArgumentNullException(nameof(source));
             this.Target = target ?? throw new ArgumentNullException(nameof(target));
+
+            this.SyncTarget();
 
             this.Source.CollectionChanged += this.SourceOnCollectionChanged;
         }
 
         /// <summary>
-        /// asdfasdf
+        /// The source collection.
         /// </summary>
-        public ItemCollectionWithLogicalTreeSupport<TItem> Source { get; }
+        public ObservableCollection<TItem> Source { get; }
 
         /// <summary>
-        /// asdfasdf
+        /// The target collection.
         /// </summary>
-        public ItemCollectionWithLogicalTreeSupport<TItem> Target { get; }
+        public ObservableCollection<TItem> Target { get; }
 
         /// <summary>
-        /// asdf
+        /// Clears <see cref="Target"/> and then copies all items from <see cref="Source"/> to <see cref="Target"/>.
         /// </summary>
-        public void TransferItemsToTarget()
+        private void SyncTarget()
         {
             this.Target.Clear();
 
             foreach (var item in this.Source)
             {
-                this.Source.Parent.RemoveLogicalChild(item);
                 this.Target.Add(item);
-            }
-        }
-
-        /// <summary>
-        /// asdf
-        /// </summary>
-        public void TransferItemsToSource()
-        {
-            foreach (var item in this.Target)
-            {
-                this.Target.Parent.RemoveLogicalChild(item);
-                this.Source.Parent.AddLogicalChild(item);
             }
         }
 
@@ -63,7 +53,6 @@
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         var item = (TItem)e.NewItems[i];
-                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Insert(e.NewStartingIndex + i, item);
                     }
 
@@ -72,7 +61,6 @@
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
-                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Remove((TItem)item);
                     }
 
@@ -81,26 +69,18 @@
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
-                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Remove((TItem)item);
                     }
 
                     foreach (var item in e.NewItems)
                     {
-                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Add((TItem)item);
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    this.Target.Clear();
-
-                    foreach (var item in this.Source)
-                    {
-                        this.Source.Parent.AddLogicalChild(item);
-                        this.Target.Add(item);
-                    }
+                    this.SyncTarget();
 
                     break;
             }

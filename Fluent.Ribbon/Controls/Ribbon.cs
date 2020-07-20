@@ -497,7 +497,7 @@ namespace Fluent
         private ItemCollectionWithLogicalTreeSupport<RibbonTabItem> tabs;
 
         // Collection of toolbar items
-        private ItemCollectionWithLogicalTreeSupport<UIElement> toolBarItems;
+        private ObservableCollection<UIElement> toolBarItems;
         private CollectionSyncHelper<UIElement> toolBarItemsSync;
 
         // Ribbon quick access toolbar
@@ -509,7 +509,7 @@ namespace Fluent
         private readonly KeyTipService keyTipService;
 
         // Collection of quickaccess menu items
-        private ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem> quickAccessItems;
+        private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
         private CollectionSyncHelper<QuickAccessMenuItem> quickAccessItemsSync;
 
         // Currently added in QAT items
@@ -858,13 +858,13 @@ namespace Fluent
         /// Gets collection of toolbar items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ItemCollectionWithLogicalTreeSupport<UIElement> ToolBarItems
+        public ObservableCollection<UIElement> ToolBarItems
         {
             get
             {
                 if (this.toolBarItems == null)
                 {
-                    this.toolBarItems = new ItemCollectionWithLogicalTreeSupport<UIElement>(this);
+                    this.toolBarItems = new ObservableCollection<UIElement>();
                 }
 
                 return this.toolBarItems;
@@ -875,13 +875,13 @@ namespace Fluent
         /// Gets collection of quick access menu items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem> QuickAccessItems
+        public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
         {
             get
             {
                 if (this.quickAccessItems == null)
                 {
-                    this.quickAccessItems = new ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem>(this);
+                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
                     this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
                 }
 
@@ -1511,7 +1511,6 @@ namespace Fluent
 
                 this.TabControl.ItemsSource = null;
 
-                this.toolBarItemsSync?.TransferItemsToSource();
                 this.toolBarItemsSync?.Target.Clear();
             }
 
@@ -1526,14 +1525,12 @@ namespace Fluent
                 this.TabControl.SelectedItem = selectedTab;
 
                 this.toolBarItemsSync = new CollectionSyncHelper<UIElement>(this.ToolBarItems, this.TabControl.ToolBarItems);
-                this.toolBarItemsSync.TransferItemsToTarget();
             }
 
             if (this.QuickAccessToolBar != null)
             {
                 this.ClearQuickAccessToolBar();
 
-                this.quickAccessItemsSync?.TransferItemsToSource();
                 this.quickAccessItemsSync?.Target.Clear();
             }
 
@@ -1542,7 +1539,6 @@ namespace Fluent
             if (this.QuickAccessToolBar != null)
             {
                 this.quickAccessItemsSync = new CollectionSyncHelper<QuickAccessMenuItem>(this.QuickAccessItems, this.QuickAccessToolBar.QuickAccessItems);
-                this.quickAccessItemsSync.TransferItemsToTarget();
 
                 {
                     var binding = new Binding(nameof(this.CanQuickAccessLocationChanging))
@@ -1916,16 +1912,6 @@ namespace Fluent
                 }
 
                 foreach (var item in this.ContextualGroups.GetLogicalChildren())
-                {
-                    yield return item;
-                }
-
-                foreach (var item in this.QuickAccessItems.GetLogicalChildren())
-                {
-                    yield return item;
-                }
-
-                foreach (var item in this.ToolBarItems.GetLogicalChildren())
                 {
                     yield return item;
                 }
