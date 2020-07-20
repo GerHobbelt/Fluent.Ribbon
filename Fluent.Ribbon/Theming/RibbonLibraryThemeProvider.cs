@@ -1,5 +1,3 @@
-#if true
-
 namespace Fluent.Theming
 {
     using System.Collections.Generic;
@@ -35,5 +33,3 @@ namespace Fluent.Theming
         }
     }
 }
-
-#endif

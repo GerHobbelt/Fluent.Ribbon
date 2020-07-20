@@ -82,4 +82,15 @@
     We need to unify TargetFramework between empty, net45, netcoreapp3.0 etc.-->
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="GenerateXamlFilesInner" Properties="TargetFramework=once" />
   </Target>
+
+  <!-- https://stackoverflow.com/questions/5102661/need-a-post-clean-event-in-visual-studio -->
+  <Target Name="MyDistClean" AfterTargets="Clean">
+    <ItemGroup>
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Dark.*" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Light.*" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Colorful.*" />
+    </ItemGroup>
+    <Message Text="Deleting XAML Color Scheme files..." Importance="high" />
+    <Delete Files="$(ThemeFiles)" ContinueOnError="true" />
+  </Target>
 </Project>
